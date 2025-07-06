@@ -1,0 +1,29 @@
+[2025-07-06T10:01:50.450+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/utils/sqlalchemy.py:124 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T10:01:50.458+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.extract_data scheduled__2025-06-05T00:00:00+00:00 [queued]>
+[2025-07-06T10:01:50.464+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.extract_data scheduled__2025-06-05T00:00:00+00:00 [queued]>
+[2025-07-06T10:01:50.464+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-07-06T10:01:50.477+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): extract_data> on 2025-06-05 00:00:00+00:00
+[2025-07-06T10:01:50.485+0000] {standard_task_runner.py:57} INFO - Started process 292 to run task
+[2025-07-06T10:01:50.488+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'extract_data', 'scheduled__2025-06-05T00:00:00+00:00', '--job-id', '2', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmpnzs_mznw']
+[2025-07-06T10:01:50.489+0000] {standard_task_runner.py:85} INFO - Job 2: Subtask extract_data
+[2025-07-06T10:01:50.502+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T10:01:50.530+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.extract_data scheduled__2025-06-05T00:00:00+00:00 [running]> on host 815e07275dfd
+[2025-07-06T10:01:50.540+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/utils/sqlalchemy.py:124 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T10:01:50.605+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='extract_data' AIRFLOW_CTX_EXECUTION_DATE='2025-06-05T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-06-05T00:00:00+00:00'
+[2025-07-06T10:01:52.039+0000] {python.py:183} INFO - Done. Returned value was:               id         sum_a  sum_b  ...  count_i  count_j        date
+0        C00313K      0.000000   8.77  ...      0.0      0.0  2023-10-01
+1        C11256K      1.280000   0.00  ...      0.0      0.0  2023-10-01
+2        C11256K      0.960000   0.00  ...      0.0      0.0  2023-11-01
+3        C11256K      0.640000   0.00  ...      0.0      0.0  2024-01-01
+4        C11256K      0.570000   0.00  ...      0.0      0.0  2024-02-01
+...          ...           ...    ...  ...      ...      ...         ...
+1270559  CBZYP6K  11955.375426   0.00  ...      0.0      0.0  2023-11-01
+1270560  CBZYP6K  15788.860118   0.00  ...      0.0      0.0  2024-01-01
+1270561  CBZYP6K  10987.337202   0.00  ...      0.0      0.0  2024-02-01
+1270562  CBZYP6K  12158.722219   0.00  ...      0.0      0.0  2024-03-01
+1270563  CBZYP6K  11897.703873   0.00  ...      0.0      0.0  2023-12-01
+
+[1270564 rows x 22 columns]
+[2025-07-06T10:01:54.614+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=customer_activity_analysis, task_id=extract_data, execution_date=20250605T000000, start_date=20250706T100150, end_date=20250706T100154
+[2025-07-06T10:01:54.669+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2025-07-06T10:01:54.692+0000] {taskinstance.py:2653} INFO - 1 downstream tasks scheduled from follow-on schedule check

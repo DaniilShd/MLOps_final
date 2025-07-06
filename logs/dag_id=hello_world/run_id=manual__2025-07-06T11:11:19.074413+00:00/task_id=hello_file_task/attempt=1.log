@@ -1,0 +1,24 @@
+[2025-07-06T11:11:22.404+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: hello_world.hello_file_task manual__2025-07-06T11:11:19.074413+00:00 [queued]>
+[2025-07-06T11:11:22.411+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: hello_world.hello_file_task manual__2025-07-06T11:11:19.074413+00:00 [queued]>
+[2025-07-06T11:11:22.411+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2025-07-06T11:11:22.424+0000] {taskinstance.py:1327} INFO - Executing <Task(BashOperator): hello_file_task> on 2025-07-06 11:11:19.074413+00:00
+[2025-07-06T11:11:22.432+0000] {standard_task_runner.py:57} INFO - Started process 205 to run task
+[2025-07-06T11:11:22.434+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'hello_world', 'hello_file_task', 'manual__2025-07-06T11:11:19.074413+00:00', '--job-id', '15', '--raw', '--subdir', 'DAGS_FOLDER/test_dag.py', '--cfg-path', '/tmp/tmp036gulk0']
+[2025-07-06T11:11:22.436+0000] {standard_task_runner.py:85} INFO - Job 15: Subtask hello_file_task
+[2025-07-06T11:11:22.450+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T11:11:22.476+0000] {task_command.py:410} INFO - Running <TaskInstance: hello_world.hello_file_task manual__2025-07-06T11:11:19.074413+00:00 [running]> on host 3c708a467488
+[2025-07-06T11:11:22.546+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='hello_world' AIRFLOW_CTX_TASK_ID='hello_file_task' AIRFLOW_CTX_EXECUTION_DATE='2025-07-06T11:11:19.074413+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-06T11:11:19.074413+00:00'
+[2025-07-06T11:11:22.547+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-07-06T11:11:22.547+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'sh /home/alex/s6.sh ']
+[2025-07-06T11:11:22.563+0000] {subprocess.py:86} INFO - Output:
+[2025-07-06T11:11:22.566+0000] {subprocess.py:93} INFO - sh: 0: cannot open /home/alex/s6.sh: No such file
+[2025-07-06T11:11:22.566+0000] {subprocess.py:97} INFO - Command exited with return code 2
+[2025-07-06T11:11:22.575+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/bash.py", line 211, in execute
+    f"Bash command failed. The command returned a non-zero exit code {result.exit_code}."
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 2.
+[2025-07-06T11:11:22.578+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=hello_world, task_id=hello_file_task, execution_date=20250706T111119, start_date=20250706T111122, end_date=20250706T111122
+[2025-07-06T11:11:22.590+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 15 for task hello_file_task (Bash command failed. The command returned a non-zero exit code 2.; 205)
+[2025-07-06T11:11:22.606+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-07-06T11:11:22.629+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,58 @@
+[2025-07-06T13:16:27.169+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T13:16:21.863269+00:00 [queued]>
+[2025-07-06T13:16:27.178+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T13:16:21.863269+00:00 [queued]>
+[2025-07-06T13:16:27.178+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-07-06T13:16:27.191+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): transform_data> on 2025-07-06 13:16:21.863269+00:00
+[2025-07-06T13:16:27.200+0000] {standard_task_runner.py:57} INFO - Started process 2439 to run task
+[2025-07-06T13:16:27.202+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'transform_data', 'manual__2025-07-06T13:16:21.863269+00:00', '--job-id', '37', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmpjsu2cazz']
+[2025-07-06T13:16:27.204+0000] {standard_task_runner.py:85} INFO - Job 37: Subtask transform_data
+[2025-07-06T13:16:27.217+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T13:16:27.246+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T13:16:21.863269+00:00 [running]> on host 9fd4b2100495
+[2025-07-06T13:16:27.317+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='transform_data' AIRFLOW_CTX_EXECUTION_DATE='2025-07-06T13:16:21.863269+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-06T13:16:21.863269+00:00'
+[2025-07-06T13:16:27.961+0000] {logging_mixin.py:150} WARNING -   0%|          | 0/10 [00:00<?, ?it/s]
+[2025-07-06T13:16:27.962+0000] {logging_mixin.py:150} WARNING -   0%|          | 0/10 [00:00<?, ?it/s]
+[2025-07-06T13:16:27.962+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3361, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 76, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 108, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5198, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5206, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'flag_a'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/frame.py", line 3751, in _set_item_mgr
+    loc = self._info_axis.get_loc(key)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3363, in get_loc
+    raise KeyError(key) from err
+KeyError: 'flag_a'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/customer_activity_dag.py", line 32, in transform_data
+    return transform(profit_table=df, date=date_str)  # Передаем строку вместо DateTime
+  File "/opt/airflow/plugins/transform_script.py", line 33, in transform
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/frame.py", line 3602, in __setitem__
+    self._set_item_frame_value(key, value)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/frame.py", line 3742, in _set_item_frame_value
+    self._set_item_mgr(key, arraylike)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/frame.py", line 3754, in _set_item_mgr
+    self._mgr.insert(len(self._info_axis), key, value)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/internals/managers.py", line 1162, in insert
+    block = new_block(values=value, ndim=self.ndim, placement=slice(loc, loc + 1))
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/internals/blocks.py", line 1937, in new_block
+    check_ndim(values, placement, ndim)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/internals/blocks.py", line 1980, in check_ndim
+    f"Wrong number of items passed {len(values)}, "
+ValueError: Wrong number of items passed 20, placement implies 1
+[2025-07-06T13:16:27.971+0000] {taskinstance.py:1350} INFO - Marking task as UP_FOR_RETRY. dag_id=customer_activity_analysis, task_id=transform_data, execution_date=20250706T131621, start_date=20250706T131627, end_date=20250706T131627
+[2025-07-06T13:16:27.984+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 37 for task transform_data (Wrong number of items passed 20, placement implies 1; 2439)
+[2025-07-06T13:16:28.056+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-07-06T13:16:28.080+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

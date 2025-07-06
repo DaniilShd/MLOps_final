@@ -1,0 +1,31 @@
+[2025-07-06T13:01:52.318+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T13:01:46.733046+00:00 [queued]>
+[2025-07-06T13:01:52.324+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T13:01:46.733046+00:00 [queued]>
+[2025-07-06T13:01:52.324+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-07-06T13:01:52.336+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): transform_data> on 2025-07-06 13:01:46.733046+00:00
+[2025-07-06T13:01:52.344+0000] {standard_task_runner.py:57} INFO - Started process 2050 to run task
+[2025-07-06T13:01:52.346+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'transform_data', 'manual__2025-07-06T13:01:46.733046+00:00', '--job-id', '29', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmp54wp6ji8']
+[2025-07-06T13:01:52.348+0000] {standard_task_runner.py:85} INFO - Job 29: Subtask transform_data
+[2025-07-06T13:01:52.361+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T13:01:52.387+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T13:01:46.733046+00:00 [running]> on host 9fd4b2100495
+[2025-07-06T13:01:52.450+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='transform_data' AIRFLOW_CTX_EXECUTION_DATE='2025-07-06T13:01:46.733046+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-06T13:01:46.733046+00:00'
+[2025-07-06T13:01:53.103+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/utils/context.py:313 AirflowContextDeprecationWarning: Accessing 'execution_date' from the template is deprecated and will be removed in a future version. Please use 'data_interval_start' or 'logical_date' instead.
+[2025-07-06T13:01:53.104+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/customer_activity_dag.py", line 35, in transform_data
+    result = transform(profit_table=df, date=execution_date)
+  File "/opt/airflow/plugins/transform_script.py", line 14, in transform
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/tools/datetimes.py", line 899, in to_datetime
+    cache_array = _maybe_cache(arg, format, cache, convert_listlike)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/tools/datetimes.py", line 190, in _maybe_cache
+    if not should_cache(arg):
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/tools/datetimes.py", line 134, in should_cache
+    if len(arg) <= start_caching_at:
+TypeError: object of type 'DateTime' has no len()
+[2025-07-06T13:01:53.113+0000] {taskinstance.py:1350} INFO - Marking task as UP_FOR_RETRY. dag_id=customer_activity_analysis, task_id=transform_data, execution_date=20250706T130146, start_date=20250706T130152, end_date=20250706T130153
+[2025-07-06T13:01:53.124+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 29 for task transform_data (object of type 'DateTime' has no len(); 2050)
+[2025-07-06T13:01:53.200+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-07-06T13:01:53.223+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

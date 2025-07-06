@@ -1,0 +1,30 @@
+[2025-07-06T17:18:12.323+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T17:12:50.898638+00:00 [queued]>
+[2025-07-06T17:18:12.329+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T17:12:50.898638+00:00 [queued]>
+[2025-07-06T17:18:12.329+0000] {taskinstance.py:1308} INFO - Starting attempt 2 of 2
+[2025-07-06T17:18:12.340+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): transform_data> on 2025-07-06 17:12:50.898638+00:00
+[2025-07-06T17:18:12.348+0000] {standard_task_runner.py:57} INFO - Started process 707 to run task
+[2025-07-06T17:18:12.351+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'transform_data', 'manual__2025-07-06T17:12:50.898638+00:00', '--job-id', '23', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmpxc0syh_c']
+[2025-07-06T17:18:12.352+0000] {standard_task_runner.py:85} INFO - Job 23: Subtask transform_data
+[2025-07-06T17:18:12.364+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T17:18:12.391+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T17:12:50.898638+00:00 [running]> on host c00985d5f7a4
+[2025-07-06T17:18:12.456+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='ds_const@mail.ru' AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='transform_data' AIRFLOW_CTX_EXECUTION_DATE='2025-07-06T17:12:50.898638+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-06T17:12:50.898638+00:00'
+[2025-07-06T17:18:21.389+0000] {logging_mixin.py:150} INFO - !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Debug data saved to /opt/***/data/debug_data.csv
+[2025-07-06T17:18:21.390+0000] {logging_mixin.py:150} INFO - Processing data for date: 2025-07-06
+[2025-07-06T17:18:21.390+0000] {logging_mixin.py:150} INFO - !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Received date type: <class 'str'>, value: 2025-07-06
+[2025-07-06T17:18:21.391+0000] {logging_mixin.py:150} INFO - !!!!!!!!!11111111111111111111111111
+[2025-07-06T17:18:21.392+0000] {logging_mixin.py:150} INFO - Error in transform: local variable 'df_tmp' referenced before assignment
+[2025-07-06T17:18:21.392+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/customer_activity_dag.py", line 107, in transform_data
+    result = transform(profit_table=df, date=date_str)
+  File "/opt/airflow/dags/customer_activity_dag.py", line 45, in transform
+    df_tmp.to_csv(debug_path, index=False)
+UnboundLocalError: local variable 'df_tmp' referenced before assignment
+[2025-07-06T17:18:21.399+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=customer_activity_analysis, task_id=transform_data, execution_date=20250706T171250, start_date=20250706T171812, end_date=20250706T171821
+[2025-07-06T17:18:21.409+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 23 for task transform_data (local variable 'df_tmp' referenced before assignment; 707)
+[2025-07-06T17:18:21.495+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-07-06T17:18:21.515+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

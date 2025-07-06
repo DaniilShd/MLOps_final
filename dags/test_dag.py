@@ -37,7 +37,7 @@ with DAG(
 
     skip_operator = BashOperator(
         task_id='skip_task',
-        bash_command='exit 99'
+        bash_command='echo 123'
     )
 
     # Определяем зависимости

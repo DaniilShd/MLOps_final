@@ -1,0 +1,23 @@
+[2025-07-06T17:27:14.203+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T17:22:06.254223+00:00 [queued]>
+[2025-07-06T17:27:14.209+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T17:22:06.254223+00:00 [queued]>
+[2025-07-06T17:27:14.209+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-07-06T17:27:14.220+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): transform_data> on 2025-07-06 17:22:06.254223+00:00
+[2025-07-06T17:27:14.228+0000] {standard_task_runner.py:57} INFO - Started process 1011 to run task
+[2025-07-06T17:27:14.231+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'transform_data', 'manual__2025-07-06T17:22:06.254223+00:00', '--job-id', '31', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmp6cb3lnb5']
+[2025-07-06T17:27:14.232+0000] {standard_task_runner.py:85} INFO - Job 31: Subtask transform_data
+[2025-07-06T17:27:14.245+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T17:27:14.273+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T17:22:06.254223+00:00 [running]> on host c00985d5f7a4
+[2025-07-06T17:27:14.336+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='ds_const@mail.ru' AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='transform_data' AIRFLOW_CTX_EXECUTION_DATE='2025-07-06T17:22:06.254223+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-06T17:22:06.254223+00:00'
+[2025-07-06T17:27:14.531+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/customer_activity_dag.py", line 100, in transform_data
+    date_str = execution_date.strftime('%Y-%m-%d')
+NameError: name 'execution_date' is not defined
+[2025-07-06T17:27:14.538+0000] {taskinstance.py:1350} INFO - Marking task as UP_FOR_RETRY. dag_id=customer_activity_analysis, task_id=transform_data, execution_date=20250706T172206, start_date=20250706T172714, end_date=20250706T172714
+[2025-07-06T17:27:14.550+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 31 for task transform_data (name 'execution_date' is not defined; 1011)
+[2025-07-06T17:27:14.603+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-07-06T17:27:14.625+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

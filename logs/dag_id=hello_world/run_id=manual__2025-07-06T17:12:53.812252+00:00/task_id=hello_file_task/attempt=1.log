@@ -1,0 +1,18 @@
+[2025-07-06T17:12:58.238+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: hello_world.hello_file_task manual__2025-07-06T17:12:53.812252+00:00 [queued]>
+[2025-07-06T17:12:58.253+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: hello_world.hello_file_task manual__2025-07-06T17:12:53.812252+00:00 [queued]>
+[2025-07-06T17:12:58.253+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2025-07-06T17:12:58.279+0000] {taskinstance.py:1327} INFO - Executing <Task(BashOperator): hello_file_task> on 2025-07-06 17:12:53.812252+00:00
+[2025-07-06T17:12:58.290+0000] {standard_task_runner.py:57} INFO - Started process 479 to run task
+[2025-07-06T17:12:58.293+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'hello_world', 'hello_file_task', 'manual__2025-07-06T17:12:53.812252+00:00', '--job-id', '14', '--raw', '--subdir', 'DAGS_FOLDER/test_dag.py', '--cfg-path', '/tmp/tmps8wm9f9c']
+[2025-07-06T17:12:58.297+0000] {standard_task_runner.py:85} INFO - Job 14: Subtask hello_file_task
+[2025-07-06T17:12:58.316+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T17:12:58.350+0000] {task_command.py:410} INFO - Running <TaskInstance: hello_world.hello_file_task manual__2025-07-06T17:12:53.812252+00:00 [running]> on host c00985d5f7a4
+[2025-07-06T17:12:58.659+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='ds_const@mail.ru' AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='hello_world' AIRFLOW_CTX_TASK_ID='hello_file_task' AIRFLOW_CTX_EXECUTION_DATE='2025-07-06T17:12:53.812252+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-06T17:12:53.812252+00:00'
+[2025-07-06T17:12:58.660+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-07-06T17:12:58.661+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'sh /opt/***/dags/scripts/test.sh']
+[2025-07-06T17:12:58.682+0000] {subprocess.py:86} INFO - Output:
+[2025-07-06T17:12:58.796+0000] {subprocess.py:93} INFO - Hello!!!
+[2025-07-06T17:12:58.797+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2025-07-06T17:12:58.840+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=hello_world, task_id=hello_file_task, execution_date=20250706T171253, start_date=20250706T171258, end_date=20250706T171258
+[2025-07-06T17:12:58.906+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2025-07-06T17:12:58.947+0000] {taskinstance.py:2653} INFO - 1 downstream tasks scheduled from follow-on schedule check

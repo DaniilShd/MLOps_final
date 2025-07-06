@@ -18,3 +18,23 @@
 [2025-07-06T12:00:01.066+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=hello_world, task_id=hello_task, execution_date=20250705T120000, start_date=20250706T120000, end_date=20250706T120001
 [2025-07-06T12:00:01.093+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
 [2025-07-06T12:00:01.116+0000] {taskinstance.py:2653} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-07-06T17:12:54.740+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/utils/sqlalchemy.py:124 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T17:12:54.748+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: hello_world.hello_task scheduled__2025-07-05T12:00:00+00:00 [queued]>
+[2025-07-06T17:12:54.755+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: hello_world.hello_task scheduled__2025-07-05T12:00:00+00:00 [queued]>
+[2025-07-06T17:12:54.755+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2025-07-06T17:12:54.770+0000] {taskinstance.py:1327} INFO - Executing <Task(BashOperator): hello_task> on 2025-07-05 12:00:00+00:00
+[2025-07-06T17:12:54.780+0000] {standard_task_runner.py:57} INFO - Started process 444 to run task
+[2025-07-06T17:12:54.783+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'hello_world', 'hello_task', 'scheduled__2025-07-05T12:00:00+00:00', '--job-id', '11', '--raw', '--subdir', 'DAGS_FOLDER/test_dag.py', '--cfg-path', '/tmp/tmpxxw5ax6a']
+[2025-07-06T17:12:54.785+0000] {standard_task_runner.py:85} INFO - Job 11: Subtask hello_task
+[2025-07-06T17:12:54.814+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T17:12:54.861+0000] {task_command.py:410} INFO - Running <TaskInstance: hello_world.hello_task scheduled__2025-07-05T12:00:00+00:00 [running]> on host c00985d5f7a4
+[2025-07-06T17:12:54.872+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/utils/sqlalchemy.py:124 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T17:12:54.953+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='ds_const@mail.ru' AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='hello_world' AIRFLOW_CTX_TASK_ID='hello_task' AIRFLOW_CTX_EXECUTION_DATE='2025-07-05T12:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-07-05T12:00:00+00:00'
+[2025-07-06T17:12:54.954+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-07-06T17:12:54.956+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'echo "Hello from Airflow inside container"']
+[2025-07-06T17:12:54.997+0000] {subprocess.py:86} INFO - Output:
+[2025-07-06T17:12:55.044+0000] {subprocess.py:93} INFO - Hello from Airflow inside container
+[2025-07-06T17:12:55.044+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2025-07-06T17:12:55.116+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=hello_world, task_id=hello_task, execution_date=20250705T120000, start_date=20250706T171254, end_date=20250706T171255
+[2025-07-06T17:12:55.155+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2025-07-06T17:12:55.197+0000] {taskinstance.py:2653} INFO - 1 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,25 @@
+[2025-07-06T17:22:43.407+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.extract_data manual__2025-07-06T17:22:42.736917+00:00 [queued]>
+[2025-07-06T17:22:43.413+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.extract_data manual__2025-07-06T17:22:42.736917+00:00 [queued]>
+[2025-07-06T17:22:43.414+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-07-06T17:22:43.425+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): extract_data> on 2025-07-06 17:22:42.736917+00:00
+[2025-07-06T17:22:43.435+0000] {standard_task_runner.py:57} INFO - Started process 866 to run task
+[2025-07-06T17:22:43.437+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'extract_data', 'manual__2025-07-06T17:22:42.736917+00:00', '--job-id', '28', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmppy4enamv']
+[2025-07-06T17:22:43.439+0000] {standard_task_runner.py:85} INFO - Job 28: Subtask extract_data
+[2025-07-06T17:22:43.451+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T17:22:43.480+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.extract_data manual__2025-07-06T17:22:42.736917+00:00 [running]> on host c00985d5f7a4
+[2025-07-06T17:22:43.546+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='ds_const@mail.ru' AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='extract_data' AIRFLOW_CTX_EXECUTION_DATE='2025-07-06T17:22:42.736917+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-06T17:22:42.736917+00:00'
+[2025-07-06T17:22:44.603+0000] {logging_mixin.py:150} INFO - Successfully loaded data with shape: (1270564, 22)
+[2025-07-06T17:22:44.605+0000] {logging_mixin.py:150} INFO - Error loading data: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Data too large for XCom
+[2025-07-06T17:22:44.606+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/customer_activity_dag.py", line 79, in extract_data
+    raise ValueError("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Data too large for XCom")
+ValueError: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Data too large for XCom
+[2025-07-06T17:22:44.613+0000] {taskinstance.py:1350} INFO - Marking task as UP_FOR_RETRY. dag_id=customer_activity_analysis, task_id=extract_data, execution_date=20250706T172242, start_date=20250706T172243, end_date=20250706T172244
+[2025-07-06T17:22:44.625+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 28 for task extract_data (!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Data too large for XCom; 866)
+[2025-07-06T17:22:44.651+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-07-06T17:22:44.670+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -21,3 +21,70 @@ TypeError: transform() missing 2 required positional arguments: 'profit_table' a
 [2025-07-06T10:06:56.746+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 4 for task transform_data (transform() missing 2 required positional arguments: 'profit_table' and 'date'; 358)
 [2025-07-06T10:06:56.763+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
 [2025-07-06T10:06:56.786+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-07-06T17:12:54.732+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/utils/sqlalchemy.py:124 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T17:12:54.744+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data scheduled__2025-06-05T00:00:00+00:00 [queued]>
+[2025-07-06T17:12:54.752+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data scheduled__2025-06-05T00:00:00+00:00 [queued]>
+[2025-07-06T17:12:54.753+0000] {taskinstance.py:1308} INFO - Starting attempt 2 of 2
+[2025-07-06T17:12:54.767+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): transform_data> on 2025-06-05 00:00:00+00:00
+[2025-07-06T17:12:54.777+0000] {standard_task_runner.py:57} INFO - Started process 443 to run task
+[2025-07-06T17:12:54.780+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'transform_data', 'scheduled__2025-06-05T00:00:00+00:00', '--job-id', '10', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmp9p17doy7']
+[2025-07-06T17:12:54.782+0000] {standard_task_runner.py:85} INFO - Job 10: Subtask transform_data
+[2025-07-06T17:12:54.801+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T17:12:54.851+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.transform_data scheduled__2025-06-05T00:00:00+00:00 [running]> on host c00985d5f7a4
+[2025-07-06T17:12:54.863+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/utils/sqlalchemy.py:124 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T17:12:54.936+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='ds_const@mail.ru' AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='transform_data' AIRFLOW_CTX_EXECUTION_DATE='2025-06-05T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-06-05T00:00:00+00:00'
+[2025-07-06T17:13:07.018+0000] {logging_mixin.py:150} INFO - !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Debug data saved to /opt/***/data/debug_data.csv
+[2025-07-06T17:13:07.018+0000] {logging_mixin.py:150} INFO - Processing data for date: 2025-06-05
+[2025-07-06T17:13:07.018+0000] {logging_mixin.py:150} INFO - !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Received date type: <class 'str'>, value: 2025-06-05
+[2025-07-06T17:13:07.019+0000] {logging_mixin.py:150} INFO - !!!!!!!!!11111111111111111111111111
+[2025-07-06T17:13:07.020+0000] {logging_mixin.py:150} INFO - 22222222222222222222222222222222222
+[2025-07-06T17:13:07.056+0000] {logging_mixin.py:150} WARNING -   0%|          | 0/10 [00:00<?, ?it/s]
+[2025-07-06T17:13:07.057+0000] {logging_mixin.py:150} WARNING -   0%|          | 0/10 [00:00<?, ?it/s]
+[2025-07-06T17:13:07.057+0000] {logging_mixin.py:150} INFO - Error in transform: Wrong number of items passed 20, placement implies 1
+[2025-07-06T17:13:07.057+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3361, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 76, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 108, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5198, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5206, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'flag_a'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/frame.py", line 3751, in _set_item_mgr
+    loc = self._info_axis.get_loc(key)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3363, in get_loc
+    raise KeyError(key) from err
+KeyError: 'flag_a'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/customer_activity_dag.py", line 99, in transform_data
+    result = transform(profit_table=df, date=date_str)
+  File "/opt/airflow/dags/customer_activity_dag.py", line 60, in transform
+    ).astype(int)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/frame.py", line 3602, in __setitem__
+    self._set_item_frame_value(key, value)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/frame.py", line 3742, in _set_item_frame_value
+    self._set_item_mgr(key, arraylike)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/frame.py", line 3754, in _set_item_mgr
+    self._mgr.insert(len(self._info_axis), key, value)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/internals/managers.py", line 1162, in insert
+    block = new_block(values=value, ndim=self.ndim, placement=slice(loc, loc + 1))
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/internals/blocks.py", line 1937, in new_block
+    check_ndim(values, placement, ndim)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/internals/blocks.py", line 1980, in check_ndim
+    f"Wrong number of items passed {len(values)}, "
+ValueError: Wrong number of items passed 20, placement implies 1
+[2025-07-06T17:13:07.066+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=customer_activity_analysis, task_id=transform_data, execution_date=20250605T000000, start_date=20250706T171254, end_date=20250706T171307
+[2025-07-06T17:13:07.078+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 10 for task transform_data (Wrong number of items passed 20, placement implies 1; 443)
+[2025-07-06T17:13:07.179+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-07-06T17:13:07.200+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

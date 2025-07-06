@@ -1,8 +1,10 @@
 import pandas as pd
 from tqdm import tqdm
+import os
 
 
 def transform(profit_table, date):
+    print(f"Received date type: {type(date)}, value: {date}")
     """ Собирает таблицу флагов активности по продуктам
         на основании прибыли и количеству совершёных транзакций
 
@@ -11,8 +13,14 @@ def transform(profit_table, date):
 
         :return df_tmp: pandas-датафрейм флагов за указанную дату
     """
-    start_date = pd.to_datetime(date) - pd.DateOffset(months=2)
-    end_date = pd.to_datetime(date) + pd.DateOffset(months=1)
+
+    # Преобразуем date в pandas.Timestamp, если это еще не сделано
+    if not isinstance(date, pd.Timestamp):
+        date = pd.to_datetime(date)
+
+
+    start_date = date - pd.DateOffset(months=2)
+    end_date = date + pd.DateOffset(months=1)
     date_list = pd.date_range(
         start=start_date, end=end_date, freq='M'
     ).strftime('%Y-%m-01')
@@ -39,6 +47,11 @@ def transform(profit_table, date):
 
 
 if __name__ == "__main__":
-    profit_data = pd.read_csv('data/profit_table.csv')
-    flags_activity = transform(profit_data, '2024-03-01')
+    # Получаем абсолютный путь к файлу
+    BASE_DIR = "/home/daniil/Learn/CV/MLOPs/final_assignment"
+    input_path = os.path.join(BASE_DIR, "data", "profit_table.csv")
+    output_path = os.path.join(BASE_DIR, "data", "flags_activity.csv")
+
+    profit_data = pd.read_csv(input_path )
+    flags_activity = transform(profit_data, '2024-04-01')
     flags_activity.to_csv('data/flags_activity.csv', index=False)

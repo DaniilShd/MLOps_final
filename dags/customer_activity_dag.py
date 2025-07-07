@@ -120,8 +120,11 @@ def transform_data(**kwargs):
 
         delete_csv_file(input_path)
 
+        # получаем дату из параметра dag
+        manual_date = kwargs['params'].get('analysis_date')
+
         # Обработка
-        result = transform(df, datetime(2024, 6, 1))
+        result = transform(df, manual_date)
 
         # Сохраняем результат
         output_path = f"{SHARED_TMP_DIR}/transform_{kwargs['run_id']}.csv"
@@ -202,6 +205,9 @@ with DAG(
         schedule_interval='0 0 5 * *',  # 5-го числа каждого месяца
         catchup=False,
         tags=['analytics', 'customer_activity'],
+        params={
+        'analysis_date': '2024-04-01'  # Значение по умолчанию
+    },
 ) as dag:
     extract_task = PythonOperator(
         task_id='extract_data',

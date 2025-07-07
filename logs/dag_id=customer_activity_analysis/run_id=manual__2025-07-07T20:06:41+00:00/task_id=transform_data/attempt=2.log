@@ -1,0 +1,25 @@
+[2025-07-07T20:11:56.971+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-07T20:06:41+00:00 [queued]>
+[2025-07-07T20:11:56.978+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-07T20:06:41+00:00 [queued]>
+[2025-07-07T20:11:56.979+0000] {taskinstance.py:1308} INFO - Starting attempt 2 of 2
+[2025-07-07T20:11:56.993+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): transform_data> on 2025-07-07 20:06:41+00:00
+[2025-07-07T20:11:57.002+0000] {standard_task_runner.py:57} INFO - Started process 2212 to run task
+[2025-07-07T20:11:57.004+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'transform_data', 'manual__2025-07-07T20:06:41+00:00', '--job-id', '94', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmpqbmsplc_']
+[2025-07-07T20:11:57.006+0000] {standard_task_runner.py:85} INFO - Job 94: Subtask transform_data
+[2025-07-07T20:11:57.019+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-07T20:11:57.052+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.transform_data manual__2025-07-07T20:06:41+00:00 [running]> on host 7a17032e36f4
+[2025-07-07T20:11:57.250+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='ds_const@mail.ru' AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='transform_data' AIRFLOW_CTX_EXECUTION_DATE='2025-07-07T20:06:41+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-07T20:06:41+00:00'
+[2025-07-07T20:11:57.259+0000] {logging_mixin.py:150} INFO - /opt/***/shared_tmp/extract_manual__2025-07-07T20:06:41+00:00.csv
+[2025-07-07T20:11:57.259+0000] {logging_mixin.py:150} INFO - Ошибка в transform_data: Файл /opt/***/shared_tmp/extract_manual__2025-07-07T20:06:41+00:00.csv не найден
+[2025-07-07T20:11:57.260+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/customer_activity_dag.py", line 116, in transform_data
+    raise FileNotFoundError(f"Файл {input_path} не найден")
+FileNotFoundError: Файл /opt/***/shared_tmp/extract_manual__2025-07-07T20:06:41+00:00.csv не найден
+[2025-07-07T20:11:57.266+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=customer_activity_analysis, task_id=transform_data, execution_date=20250707T200641, start_date=20250707T201156, end_date=20250707T201157
+[2025-07-07T20:11:57.275+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 94 for task transform_data (Файл /opt/***/shared_tmp/extract_manual__2025-07-07T20:06:41+00:00.csv не найден; 2212)
+[2025-07-07T20:11:57.296+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-07-07T20:11:57.431+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

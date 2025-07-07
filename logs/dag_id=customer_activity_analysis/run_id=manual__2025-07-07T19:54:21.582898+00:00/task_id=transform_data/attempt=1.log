@@ -1,0 +1,19 @@
+[2025-07-07T19:54:32.452+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-07T19:54:21.582898+00:00 [queued]>
+[2025-07-07T19:54:32.458+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-07T19:54:21.582898+00:00 [queued]>
+[2025-07-07T19:54:32.458+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-07-07T19:54:32.472+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): transform_data> on 2025-07-07 19:54:21.582898+00:00
+[2025-07-07T19:54:32.480+0000] {standard_task_runner.py:57} INFO - Started process 1751 to run task
+[2025-07-07T19:54:32.482+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'transform_data', 'manual__2025-07-07T19:54:21.582898+00:00', '--job-id', '63', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmpfupex93s']
+[2025-07-07T19:54:32.483+0000] {standard_task_runner.py:85} INFO - Job 63: Subtask transform_data
+[2025-07-07T19:54:32.497+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-07T19:54:32.521+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.transform_data manual__2025-07-07T19:54:21.582898+00:00 [running]> on host 7a17032e36f4
+[2025-07-07T19:54:32.715+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='ds_const@mail.ru' AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='transform_data' AIRFLOW_CTX_EXECUTION_DATE='2025-07-07T19:54:21.582898+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-07T19:54:21.582898+00:00'
+[2025-07-07T19:54:32.725+0000] {logging_mixin.py:150} INFO - /opt/***/shared_tmp/extract_manual__2025-07-07T19:54:21.582898+00:00.csv
+[2025-07-07T19:54:33.821+0000] {logging_mixin.py:150} INFO - Файл /opt/***/shared_tmp/extract_manual__2025-07-07T19:54:21.582898+00:00.csv успешно удалён
+[2025-07-07T19:54:33.822+0000] {logging_mixin.py:150} INFO - Received date type: <class 'datetime.datetime'>, value: 2024-02-01 00:00:00
+[2025-07-07T19:54:34.411+0000] {logging_mixin.py:150} WARNING - Generating flags:   0%|          | 0/10 [00:00<?, ?it/s]
+[2025-07-07T19:54:34.425+0000] {logging_mixin.py:150} WARNING - Generating flags: 100%|##########| 10/10 [00:00<00:00, 739.66it/s]
+[2025-07-07T19:54:34.828+0000] {python.py:183} INFO - Done. Returned value was: /opt/***/shared_tmp/transform_manual__2025-07-07T19:54:21.582898+00:00.csv
+[2025-07-07T19:54:34.851+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=customer_activity_analysis, task_id=transform_data, execution_date=20250707T195421, start_date=20250707T195432, end_date=20250707T195434
+[2025-07-07T19:54:34.899+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2025-07-07T19:54:34.918+0000] {taskinstance.py:2653} INFO - 1 downstream tasks scheduled from follow-on schedule check

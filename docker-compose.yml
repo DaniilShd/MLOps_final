@@ -51,6 +51,7 @@ services:
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
       _PIP_ADDITIONAL_REQUIREMENTS: "pandas tqdm"
     volumes:
+      - ./shared_tmp:/opt/airflow/shared_tmp
       - ./dags:/opt/airflow/dags
       - ./scripts:/opt/airflow/dags/scripts  # Добавьте эту строку
       - ./plugins:/opt/airflow/plugins
@@ -75,6 +76,7 @@ services:
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
       _PIP_ADDITIONAL_REQUIREMENTS: "pandas tqdm"
     volumes:
+      - ./shared_tmp:/opt/airflow/shared_tmp
       - ./dags:/opt/airflow/dags
       - ./scripts:/opt/airflow/dags/scripts  # Добавьте эту строку
       - ./plugins:/opt/airflow/plugins

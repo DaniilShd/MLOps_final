@@ -1,0 +1,39 @@
+[2025-07-07T19:15:53.657+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.load_data manual__2025-07-07T19:15:40.039325+00:00 [queued]>
+[2025-07-07T19:15:53.663+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.load_data manual__2025-07-07T19:15:40.039325+00:00 [queued]>
+[2025-07-07T19:15:53.663+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-07-07T19:15:53.676+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): load_data> on 2025-07-07 19:15:40.039325+00:00
+[2025-07-07T19:15:53.684+0000] {standard_task_runner.py:57} INFO - Started process 836 to run task
+[2025-07-07T19:15:53.687+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'load_data', 'manual__2025-07-07T19:15:40.039325+00:00', '--job-id', '26', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmpqopuj82m']
+[2025-07-07T19:15:53.688+0000] {standard_task_runner.py:85} INFO - Job 26: Subtask load_data
+[2025-07-07T19:15:53.701+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-07T19:15:53.725+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.load_data manual__2025-07-07T19:15:40.039325+00:00 [running]> on host 7a17032e36f4
+[2025-07-07T19:15:53.916+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='ds_const@mail.ru' AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='load_data' AIRFLOW_CTX_EXECUTION_DATE='2025-07-07T19:15:40.039325+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-07T19:15:40.039325+00:00'
+[2025-07-07T19:15:53.925+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/customer_activity_dag.py", line 152, in load_data
+    new_data = pd.read_csv(tmp_path)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/util/_decorators.py", line 311, in wrapper
+    return func(*args, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parsers/readers.py", line 586, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parsers/readers.py", line 482, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parsers/readers.py", line 811, in __init__
+    self._engine = self._make_engine(self.engine)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parsers/readers.py", line 1040, in _make_engine
+    return mapping[engine](self.f, **self.options)  # type: ignore[call-arg]
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parsers/c_parser_wrapper.py", line 69, in __init__
+    self._reader = parsers.TextReader(self.handles.handle, **kwds)
+  File "pandas/_libs/parsers.pyx", line 542, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas/_libs/parsers.pyx", line 642, in pandas._libs.parsers.TextReader._get_header
+  File "pandas/_libs/parsers.pyx", line 843, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "pandas/_libs/parsers.pyx", line 1917, in pandas._libs.parsers.raise_parser_error
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x90 in position 73: invalid start byte
+[2025-07-07T19:15:53.934+0000] {taskinstance.py:1350} INFO - Marking task as UP_FOR_RETRY. dag_id=customer_activity_analysis, task_id=load_data, execution_date=20250707T191540, start_date=20250707T191553, end_date=20250707T191553
+[2025-07-07T19:15:53.944+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 26 for task load_data ('utf-8' codec can't decode byte 0x90 in position 73: invalid start byte; 836)
+[2025-07-07T19:15:53.978+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-07-07T19:15:53.995+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

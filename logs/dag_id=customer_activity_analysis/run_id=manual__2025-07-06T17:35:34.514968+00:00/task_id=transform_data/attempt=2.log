@@ -1,0 +1,32 @@
+[2025-07-06T17:40:39.934+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T17:35:34.514968+00:00 [queued]>
+[2025-07-06T17:40:39.940+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T17:35:34.514968+00:00 [queued]>
+[2025-07-06T17:40:39.940+0000] {taskinstance.py:1308} INFO - Starting attempt 2 of 2
+[2025-07-06T17:40:39.951+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): transform_data> on 2025-07-06 17:35:34.514968+00:00
+[2025-07-06T17:40:39.959+0000] {standard_task_runner.py:57} INFO - Started process 1462 to run task
+[2025-07-06T17:40:39.962+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'transform_data', 'manual__2025-07-06T17:35:34.514968+00:00', '--job-id', '41', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmptcxn9s8i']
+[2025-07-06T17:40:39.963+0000] {standard_task_runner.py:85} INFO - Job 41: Subtask transform_data
+[2025-07-06T17:40:39.975+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T17:40:40.003+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.transform_data manual__2025-07-06T17:35:34.514968+00:00 [running]> on host c00985d5f7a4
+[2025-07-06T17:40:40.070+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='ds_const@mail.ru' AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='transform_data' AIRFLOW_CTX_EXECUTION_DATE='2025-07-06T17:35:34.514968+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-06T17:35:34.514968+00:00'
+[2025-07-06T17:40:40.088+0000] {logging_mixin.py:150} INFO - Error in transform_data: [Errno 2] No such file or directory: '/tmp/tmp3ozpveak.parquet'
+[2025-07-06T17:40:40.088+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/customer_activity_dag.py", line 94, in transform_data
+    df = pd.read_parquet(tmp_path)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parquet.py", line 500, in read_parquet
+    **kwargs,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parquet.py", line 236, in read
+    mode="rb",
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/parquet.py", line 102, in _get_path_or_handle
+    path_or_handle, mode, is_text=False, storage_options=storage_options
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/common.py", line 711, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmp3ozpveak.parquet'
+[2025-07-06T17:40:40.097+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=customer_activity_analysis, task_id=transform_data, execution_date=20250706T173534, start_date=20250706T174039, end_date=20250706T174040
+[2025-07-06T17:40:40.106+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 41 for task transform_data ([Errno 2] No such file or directory: '/tmp/tmp3ozpveak.parquet'; 1462)
+[2025-07-06T17:40:40.133+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2025-07-06T17:40:40.155+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,15 @@
+[2025-07-06T18:56:40.769+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: customer_activity_analysis.extract_data manual__2025-07-06T18:56:39.633581+00:00 [queued]>
+[2025-07-06T18:56:40.775+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: customer_activity_analysis.extract_data manual__2025-07-06T18:56:39.633581+00:00 [queued]>
+[2025-07-06T18:56:40.776+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 2
+[2025-07-06T18:56:40.788+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): extract_data> on 2025-07-06 18:56:39.633581+00:00
+[2025-07-06T18:56:40.797+0000] {standard_task_runner.py:57} INFO - Started process 537 to run task
+[2025-07-06T18:56:40.799+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'customer_activity_analysis', 'extract_data', 'manual__2025-07-06T18:56:39.633581+00:00', '--job-id', '66', '--raw', '--subdir', 'DAGS_FOLDER/customer_activity_dag.py', '--cfg-path', '/tmp/tmppxax8270']
+[2025-07-06T18:56:40.801+0000] {standard_task_runner.py:85} INFO - Job 66: Subtask extract_data
+[2025-07-06T18:56:40.815+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-07-06T18:56:40.844+0000] {task_command.py:410} INFO - Running <TaskInstance: customer_activity_analysis.extract_data manual__2025-07-06T18:56:39.633581+00:00 [running]> on host 636fb1e40b9e
+[2025-07-06T18:56:40.908+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='ds_const@mail.ru' AIRFLOW_CTX_DAG_OWNER='Daniil' AIRFLOW_CTX_DAG_ID='customer_activity_analysis' AIRFLOW_CTX_TASK_ID='extract_data' AIRFLOW_CTX_EXECUTION_DATE='2025-07-06T18:56:39.633581+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-06T18:56:39.633581+00:00'
+[2025-07-06T18:56:42.609+0000] {logging_mixin.py:150} INFO - !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/opt/***/shared_tmp/extract_manual__2025-07-06T18:56:39.633581+00:00.parquet
+[2025-07-06T18:56:42.616+0000] {python.py:183} INFO - Done. Returned value was: /opt/***/shared_tmp/extract_manual__2025-07-06T18:56:39.633581+00:00.parquet
+[2025-07-06T18:56:42.640+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=customer_activity_analysis, task_id=extract_data, execution_date=20250706T185639, start_date=20250706T185640, end_date=20250706T185642
+[2025-07-06T18:56:42.695+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2025-07-06T18:56:42.719+0000] {taskinstance.py:2653} INFO - 1 downstream tasks scheduled from follow-on schedule check

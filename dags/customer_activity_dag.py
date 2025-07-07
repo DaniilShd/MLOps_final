@@ -17,28 +17,51 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
+SHARED_TMP_DIR = '/opt/airflow/shared_tmp'
+os.makedirs(SHARED_TMP_DIR, exist_ok=True)
+
+def delete_csv_file(file_path):
+  """
+  Удаляет файл csv по указанному пути.
+
+  :param file_path: Полный путь к файлу Parquet
+  """
+  try:
+      if os.path.exists(file_path):
+          os.remove(file_path)
+          print(f"Файл {file_path} успешно удалён")
+      else:
+          print(f"Файл {file_path} не найден")
+  except Exception as e:
+      print(f"Ошибка при удалении файла {file_path}: {e}")
+      raise
+
+
 def transform(profit_table, date):
-    print(f"Received date type: {type(date)}, value: {date}")
-    """ Собирает таблицу флагов активности по продуктам
-        на основании прибыли и количеству совершёных транзакций
-
-        :param profit_table: таблица с суммой и кол-вом транзакций
-        :param date: дата расчёта флагов активности
-
-        :return df_tmp: pandas-датафрейм флагов за указанную дату
     """
+        Собирает таблицу флагов активности по продуктам на основе прибыли и количества транзакций.
 
-    # Преобразуем date в pandas.Timestamp, если это еще не сделано
+        Args:
+            profit_table (pd.DataFrame): Таблица с данными о суммах и количестве транзакций.
+            date: Дата расчёта флагов активности (строка, datetime или pd.Timestamp).
+
+        Returns:
+            pd.DataFrame: Датафрейм с флагами активности за указанную дату.
+        """
+    print(f"Received date type: {type(date)}, value: {date}")
+
+    # Преобразуем date в pd.Timestamp, если это еще не сделано
     if not isinstance(date, pd.Timestamp):
         date = pd.to_datetime(date)
 
-
+    # Определяем диапазон дат
     start_date = date - pd.DateOffset(months=2)
     end_date = date + pd.DateOffset(months=1)
     date_list = pd.date_range(
         start=start_date, end=end_date, freq='M'
     ).strftime('%Y-%m-01')
 
+    # Фильтруем данные по датам и агрегируем
     df_tmp = (
         profit_table[profit_table['date'].isin(date_list)]
         .drop('date', axis=1)
@@ -46,103 +69,130 @@ def transform(profit_table, date):
         .sum()
     )
 
-    # Сохраните данные для отладки
-    debug_path = '/opt/airflow/data/debug_data.csv'
-    df_tmp.to_csv(debug_path, index=False)
-    print(f"Debug data saved to {debug_path}")
-
+    # Генерируем флаги активности для каждого продукта
     product_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
-    for product in tqdm(product_list):
+    for product in tqdm(product_list, desc="Generating flags"):
         df_tmp[f'flag_{product}'] = (
-            df_tmp.apply(
-                lambda x: x[f'sum_{product}'] != 0 and x[f'count_{product}'] != 0,
-                axis=1
-            ).astype(int)
-        )
+                (df_tmp[f'sum_{product}'] != 0) &
+                (df_tmp[f'count_{product}'] != 0)
+        ).astype(int)
 
-    df_tmp = df_tmp.filter(regex='flag').reset_index()
+    # Оставляем только флаги и сбрасываем индекс
+    df_tmp = df_tmp.filter(regex='flag_').reset_index()
+    # Добавляем дату анализа
+    df_tmp['analysis_date'] = date.strftime('%Y-%m-%d')
+
 
     return df_tmp
-
-
 
 def extract_data(**kwargs):
     """Извлечение данных из CSV файла"""
     try:
+        # Читаем данные
         df = pd.read_csv('/opt/airflow/data/profit_table.csv')
-        print(f"Successfully loaded data with shape: {df.shape}")
-        if df.memory_usage().sum() > 45000:
-            print("Data too large for XCom")
-        with NamedTemporaryFile(suffix='.parquet', delete=False) as tmp:
-            df.to_parquet(tmp.name)
-            kwargs['ti'].xcom_push(key='data_path', value=tmp.name)
-        return df
-    except Exception as e:
-        print(f"Error loading data: {str(e)}")
-        raise
 
+        # Сохраняем в общую директорию
+        tmp_path = f"{SHARED_TMP_DIR}/extract_{kwargs['run_id']}.csv"
+        df.to_csv(tmp_path, index=False)
+
+        # Проверяем запись
+        assert os.path.exists(tmp_path), "Файл не был создан"
+        print(f"{tmp_path}")
+        return tmp_path
+
+    except Exception as e:
+        print(f"Ошибка в extract_data: {str(e)}")
+        raise
 
 
 def transform_data(**kwargs):
     """Преобразование данных с использованием готовой функции transform"""
     ti = kwargs['ti']
-    tmp_path = ti.xcom_pull(task_ids='extract_data', key='data_path')
-
-    # Читаем из временного файла
-    df = pd.read_parquet(tmp_path)
-
-    # Сохраните данные для отладки
-    # debug_path = '/opt/airflow/data/debug_data.csv'
-    # df.to_csv(debug_path, index=False)
-    # print(f"Debug data saved to {debug_path}")
-
-    # Обработка данных
-
-
-    # Рассчитываем даты для 3 месяцев (X, X-1, X-2)
-    # date_str = execution_date.strftime('%Y-%m-%d')
-    # print(f"Processing data for date: {date_str}")
-
     try:
-        # Вызываем функцию преобразования от data science команды
-        result = transform(df, kwargs['logical_date'].strftime('%Y-%m-%d'))
-        print(f"Transformed data shape: {result.shape}")
-        return result
+        # Получаем путь из предыдущей задачи
+        input_path = ti.xcom_pull(task_ids='extract_data')
+        print(f"{input_path}")
+        if not input_path or not os.path.exists(input_path):
+            raise FileNotFoundError(f"Файл {input_path} не найден")
+
+        # Читаем данные
+        df = pd.read_csv(input_path)
+
+        delete_csv_file(input_path)
+
+        # Обработка
+        result = transform(df, datetime(2024, 6, 1))
+
+        # Сохраняем результат
+        output_path = f"{SHARED_TMP_DIR}/transform_{kwargs['run_id']}.csv"
+        result.to_csv(output_path, index=False)
+        return output_path
+
     except Exception as e:
-        print(f"Error in transform: {str(e)}")
+        print(f"Ошибка в transform_data: {str(e)}")
         raise
 
 
 def load_data(**kwargs):
     """Загрузка результатов с добавлением новых данных без перезаписи"""
     ti = kwargs['ti']
-    execution_date = kwargs['logical_date']
-    date_str = execution_date.strftime('%Y-%m-%d')
 
-    # Получаем преобразованные данные
-    new_data = ti.xcom_pull(task_ids='transform_data')
+    # Получаем путь к временному файлу из предыдущей задачи
+    tmp_path = ti.xcom_pull(task_ids='transform_data')
+    if not tmp_path:
+        raise ValueError("No path received from transform_data task")
+
+    # Основной файл для хранения результатов
     output_path = '/opt/airflow/data/flags_activity.csv'
 
     try:
-        # Пытаемся загрузить существующие данные
+        # Читаем новые данные
+        new_data = pd.read_csv(tmp_path)
+        if new_data.empty:
+            print("Warning: Received empty dataframe")
+            return
+
+        # Проверяем наличие колонки analysis_date
+        if 'analysis_date' not in new_data.columns:
+            raise KeyError("Column 'analysis_date' not found in new data")
+
+        current_analysis_date = new_data['analysis_date'].iloc[0]
+
+        # Загружаем и обновляем существующие данные
         if os.path.exists(output_path):
             existing_data = pd.read_csv(output_path)
 
-            # Удаляем старые записи для этой даты, если они есть
-            existing_data = existing_data[existing_data['analysis_date'] != date_str]
+            # Удаляем записи за текущую дату анализа (если они уже есть)
+            mask = existing_data['analysis_date'] != current_analysis_date
+            existing_data = existing_data[mask]
 
-            # Объединяем с новыми данными
-            combined_data = pd.concat([existing_data, new_data], ignore_index=True)
+            # Объединяем данные
+            result = pd.concat([existing_data, new_data], ignore_index=True)
         else:
-            combined_data = new_data
+            result = new_data
 
-        # Сохраняем с режимом перезаписи, но сохраняя исторические данные
-        combined_data.to_csv(output_path, index=False)
-        print(f"Data successfully saved to {output_path}")
+        # Сохраняем результат
+        result.to_csv(output_path, index=False)
+        print(f"Successfully saved {len(result)} records to {output_path}")
 
     except Exception as e:
-        print(f"Error saving data: {str(e)}")
+        print(f"Error in load_data: {str(e)}")
+
+        # Сохраняем новые данные для диагностики
+        error_path = f'/opt/airflow/data/error_{datetime.now().strftime("%Y%m%d_%H%M%S")}.csv'
+        new_data.to_csv(error_path, index=False)
+        print(f"Saved error data to {error_path}")
+
         raise
+
+    finally:
+        # Всегда удаляем временный файл
+        if tmp_path and os.path.exists(tmp_path):
+            try:
+                delete_csv_file(tmp_path)
+                print(f"Temporary file {tmp_path} removed")
+            except Exception as e:
+                print(f"Warning: Could not remove temp file {tmp_path}: {str(e)}")
 
 
 with DAG(

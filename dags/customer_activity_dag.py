@@ -122,9 +122,10 @@ def transform_data(**kwargs):
 
         # получаем дату из параметра dag
         manual_date = kwargs['params'].get('analysis_date')
+        date = pd.to_datetime(manual_date) if manual_date else kwargs['logical_date']
 
         # Обработка
-        result = transform(df, manual_date)
+        result = transform(df, date)
 
         # Сохраняем результат
         output_path = f"{SHARED_TMP_DIR}/transform_{kwargs['run_id']}.csv"
@@ -206,7 +207,7 @@ with DAG(
         catchup=False,
         tags=['analytics', 'customer_activity'],
         params={
-        'analysis_date': '2024-04-01'  # Значение по умолчанию
+        'analysis_date': datetime.now().strftime('%Y-%m-%d')  # Значение по умолчанию
     },
 ) as dag:
     extract_task = PythonOperator(
